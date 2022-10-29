@@ -1,11 +1,19 @@
-from flask import Flask
+from flask import Flask, render_template, request
 
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def Hello_Rash():
-    return "Hello, Dummy. What took you so long?!!!!" 
+    return render_template('index.html') 
+
+@app.route('/', methods=['POST'])
+def predict():
+    imagefile = request.files['imagefile']
+    image_path = "./images/" + imagefile.filename
+    imagefile.save(image_path)
+
+    return render_template('index.html') 
 
 
 if __name__== '__main__':
